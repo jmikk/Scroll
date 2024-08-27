@@ -1146,6 +1146,8 @@ class Scroll(commands.Cog):
 		queuereq = requests.get("https://www.nationstates.net/cgi-bin/api.cgi?q=tgqueue", headers = headers)
 		#technically i guess i could've condensed the next six lines into one, but this is more legible lmao
 		root = ET.fromstring(queuereq.text)
+		await ctx.send(queuereq.text)
+		await ctx.send(root)
 		manual = root.find("manual").text
 		mass = root.find("mass").text
 		api = root.find("api").text
