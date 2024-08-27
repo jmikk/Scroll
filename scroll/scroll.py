@@ -136,6 +136,7 @@ class Scroll(commands.Cog):
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers = headers)
 		#pulling lists of the important stuff out
 		root = ET.fromstring(req.text)
+		await ctx.send(req.text)
 		eventlist = root.findall("EVENT")
 		
 		timeslist = root.findall("TIMESTAMP")
