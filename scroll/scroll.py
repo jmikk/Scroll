@@ -1149,9 +1149,9 @@ class Scroll(commands.Cog):
 		tgqueue = root.find("TGQUEUE")
 		await ctx.send(queuereq.text)
 		await ctx.send(root)
-		manual = root.find("manual").text
-		mass = root.find("mass").text
-		api = root.find("api").text
+		manual = tgqueue.find("manual").text
+		mass = tgqueue.find("mass").text
+		api = tgqueue.find("api").text
 		sendstring=f"Current TG Queue:\n```Manual: {manual}\nMass: {mass}\nAPI: {api}```"
 		await ctx.send(sendstring)
 	@commands.command()
