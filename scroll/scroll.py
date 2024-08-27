@@ -136,11 +136,11 @@ class Scroll(commands.Cog):
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers = headers)
 		#pulling lists of the important stuff out
 		root = ET.fromstring(req.text)
-		await ctx.send(req.text)
-		eventlist = root.findall("EVENT")
+		happenings = root.find("HAPPENINGS")
 		
-		timeslist = root.findall("TIMESTAMP")
-		regionTextlist = root.findall("TEXT")
+		eventlist = happenings.findall("EVENT")
+		timeslist = happenings.findall("TIMESTAMP")
+		regionTextlist = happenings.findall("TEXT")
 		regionlist = []
 		for text in regionTextlist:
 			regionlist.append(str(text).split("%%")[1])
@@ -594,9 +594,11 @@ class Scroll(commands.Cog):
 				#pull 100 as a baseline dealio; set lastID at most recent
 				req = requests.get("https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100", headers=headers)
 				root = ET.fromstring(req.text)
-				eventlist = root.findall("EVENT")
-				timeslist = root.findall("TIMESTAMP")
-				regionTextlist = root.findall("TEXT")
+				happenings = root.find("HAPPENINGS")
+
+				eventlist = happenings.findall("EVENT")
+				timeslist = happenings.findall("TIMESTAMP")
+				regionTextlist = happenings.findall("TEXT")
 				regionlist = []
 				for text in regionTextlist:
 					regionlist.append(str(text).split("%%")[1])
@@ -656,9 +658,10 @@ class Scroll(commands.Cog):
 		#pull as many foundings as you can from present to the lastID on record
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100;sinceid={lastID}", headers = headers)
 		root = ET.fromstring(req.text)
-		eventlist = root.findall("EVENT")
-		timeslist = root.findall("TIMESTAMP")
-		regionTextlist = root.findall("TEXT")
+		happenings = root.find("HAPPENINGS")
+		eventlist = happenings.findall("EVENT")
+		timeslist = happenings.findall("TIMESTAMP")
+		regionTextlist = happenings.findall("TEXT")
 		ctelist = []
 		print(len(eventlist))
 		#if there's too many to grab with one api request; we'll loop until it returns <100 results; i.e. when we've hit the target id, *OR* when grabbed events are too old to be useful (>2d)
@@ -669,9 +672,10 @@ class Scroll(commands.Cog):
 				await asyncio.sleep(0.7)
 				req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100;sinceid={lastID};beforeid={lastID2}", headers = headers)
 				root = ET.fromstring(req.text)
-				list1 = root.findall("EVENT")
-				list2 = root.findall("TIMESTAMP")
-				list3 = root.findall("TEXT")
+				happenings = root.find("HAPPENINGS")
+				list1 = happenings.findall("EVENT")
+				list2 = happenings.findall("TIMESTAMP")
+				list3 = happenings.findall("TEXT")
 				timeslist.extend(list2)
 				eventlist.extend(list1)
 				regionTextlist.extend(list3)
