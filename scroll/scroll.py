@@ -134,11 +134,10 @@ class Scroll(commands.Cog):
 		#as currently stands this also won't catch everything if there's over 100 founds in the 50-250s window, but that's an exceedingly extreme edge case and that kinda founding spike would probably fuck NS itself up as well lmaoo
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers = headers)
 		#pulling lists of the important stuff out
-		eventlist = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
-		timeslist = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
-		regionTextlist = BeautifulSoup(req.text, "html.parser").find_all("TEXT")
+		eventlist = BeautifulSoup(req.text, "lxml-xml").find_all("EVENT")
+		timeslist = BeautifulSoup(req.text, "lxml-xml").find_all("TIMESTAMP")
+		regionTextlist = BeautifulSoup(req.text, "lxml-xml").find_all("TEXT")
 		regionlist = []
-		await ctx.send(regionlist)
 		for text in regionTextlist:
 			regionlist.append(str(text).split("%%")[1])
 		#if at least one founding has happened in the last window ('cause otherwise we'd crash lmao)
@@ -590,9 +589,9 @@ class Scroll(commands.Cog):
 			if lastPath[1] == False:
 				#pull 100 as a baseline dealio; set lastID at most recent
 				req = requests.get("https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100", headers=headers)
-				eventlist = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
-				timeslist = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
-				regionTextlist = BeautifulSoup(req.text, "html.parser").find_all("TEXT")
+				eventlist = BeautifulSoup(req.text, "lxml-xml").find_all("EVENT")
+				timeslist = BeautifulSoup(req.text, "lxml-xml").find_all("TIMESTAMP")
+				regionTextlist = BeautifulSoup(req.text, "lxml-xml").find_all("TEXT")
 				regionlist = []
 				for text in regionTextlist:
 					regionlist.append(str(text).split("%%")[1])
@@ -651,9 +650,9 @@ class Scroll(commands.Cog):
 		#the following should run if there's a) a lastID in the backup file, or b) a lastID in program memory
 		#pull as many foundings as you can from present to the lastID on record
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100;sinceid={lastID}", headers = headers)
-		eventlist = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
-		timeslist = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
-		regionTextlist = BeautifulSoup(req.text, "html.parser").find_all("TEXT")
+		eventlist = BeautifulSoup(req.text, "lxml-xml").find_all("EVENT")
+		timeslist = BeautifulSoup(req.text, "lxml-xml").find_all("TIMESTAMP")
+		regionTextlist = BeautifulSoup(req.text, "lxml-xml").find_all("TEXT")
 		ctelist = []
 		print(len(eventlist))
 		#if there's too many to grab with one api request; we'll loop until it returns <100 results; i.e. when we've hit the target id, *OR* when grabbed events are too old to be useful (>2d)
@@ -663,9 +662,9 @@ class Scroll(commands.Cog):
 			while caughtUp == False:
 				await asyncio.sleep(0.7)
 				req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100;sinceid={lastID};beforeid={lastID2}", headers = headers)
-				list1 = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
-				list2 = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
-				list3 = BeautifulSoup(req.text, "html.parser").find_all("TEXT")
+				list1 = BeautifulSoup(req.text, "lxml-xml").find_all("EVENT")
+				list2 = BeautifulSoup(req.text, "lxml-xml").find_all("TIMESTAMP")
+				list3 = BeautifulSoup(req.text, "lxml-xml").find_all("TEXT")
 				timeslist.extend(list2)
 				eventlist.extend(list1)
 				regionTextlist.extend(list3)
@@ -1140,7 +1139,7 @@ class Scroll(commands.Cog):
 		#as always we have an enforced delay before doing a call :))
 		queuereq = requests.get("https://www.nationstates.net/cgi-bin/api.cgi?q=tgqueue", headers = headers)
 		#technically i guess i could've condensed the next six lines into one, but this is more legible lmao
-		soup = BeautifulSoup(queuereq.text, "html.parser")
+		soup = BeautifulSoup(queuereq.text, "lxml-xml")
 		manual = soup.find("MANUAL").string
 		mass = soup.find("MASS").string
 		api = soup.find("API").string
