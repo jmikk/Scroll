@@ -1147,8 +1147,6 @@ class Scroll(commands.Cog):
 		#technically i guess i could've condensed the next six lines into one, but this is more legible lmao
 		root = ET.fromstring(queuereq.text)
 		tgqueue = root.find("TGQUEUE")
-		await ctx.send(queuereq.text)
-		await ctx.send(root)
 		manual = tgqueue.find("MANUAL").text
 		mass = tgqueue.find("MASS").text
 		api = tgqueue.find("API").text
