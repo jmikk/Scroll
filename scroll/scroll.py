@@ -138,6 +138,7 @@ class Scroll(commands.Cog):
 		timeslist = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
 		regionTextlist = BeautifulSoup(req.text, "html.parser").find_all("TEXT")
 		regionlist = []
+		await ctx.send(regionlist)
 		for text in regionTextlist:
 			regionlist.append(str(text).split("%%")[1])
 		#if at least one founding has happened in the last window ('cause otherwise we'd crash lmao)
