@@ -672,6 +672,7 @@ class Scroll(commands.Cog):
 				await asyncio.sleep(0.7)
 				req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100;sinceid={lastID};beforeid={lastID2}", headers = headers)
 				root = ET.fromstring(req.text)
+				await ctx.send(req.text[0:200])
 				world = root.find("WORLD")
 				happenings = world.find("HAPPENINGS")
 				list1 = happenings.findall("EVENT")
