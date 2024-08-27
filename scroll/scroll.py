@@ -608,12 +608,12 @@ class Scroll(commands.Cog):
 			if lastPath[1] == False:
 				#pull 100 as a baseline dealio; set lastID at most recent
 				req = requests.get("https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100", headers=headers)
-				root = ET.fromstring(req.text)
-				happenings = root.find("HAPPENINGS")
+           			root = ET.fromstring(req.text)
+            			happenings = root.find("HAPPENINGS")
 
 				eventlist = happenings.findall("EVENT")
-				timeslist = happenings.findall("TIMESTAMP")
-				regionTextlist = happenings.findall("TEXT")
+                		timeslist = [event.find("TIMESTAMP").text for event in eventlist]
+				regionTextlist = [event.find("TEXT").text for event in eventlist]
 				regionlist = []
 				for text in regionTextlist:
 					regionlist.append(str(text).split("%%")[1])
