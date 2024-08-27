@@ -135,12 +135,27 @@ class Scroll(commands.Cog):
 		#as currently stands this also won't catch everything if there's over 100 founds in the 50-250s window, but that's an exceedingly extreme edge case and that kinda founding spike would probably fuck NS itself up as well lmaoo
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers = headers)
 		#pulling lists of the important stuff out
+		
+		
+		
+		# Parse the XML from the response text
 		root = ET.fromstring(req.text)
+		
+		# Find the HAPPENINGS element
 		happenings = root.find("HAPPENINGS")
 		
+		# Retrieve all EVENT elements
 		eventlist = happenings.findall("EVENT")
-		timeslist = happenings.findall("TIMESTAMP")
-		regionTextlist = happenings.findall("TEXT")
+			
+		# Loop through each event to extract TIMESTAMP and TEXT
+		for event in eventlist:
+		    timestamp = event.find("TIMESTAMP").text if event.find("TIMESTAMP") is not None else None
+		    text = event.find("TEXT").text if event.find("TEXT") is not None else None
+		    
+		    # Add the extracted values to the corresponding lists
+		    timeslist.append(timestamp)
+		    regionTextlist.append(text)
+		
 		regionlist = []
 		for text in regionTextlist:
 			regionlist.append(str(text).split("%%")[1])
@@ -672,12 +687,12 @@ class Scroll(commands.Cog):
 				await asyncio.sleep(0.7)
 				req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100;sinceid={lastID};beforeid={lastID2}", headers = headers)
 				root = ET.fromstring(req.text)
-				await ctx.send(req.text[0:200])
-				world = root.find("WORLD")
-				happenings = world.find("HAPPENINGS")
-				list1 = happenings.findall("EVENT")
-				list2 = happenings.findall("TIMESTAMP")
-				list3 = happenings.findall("TEXT")
+				#await ctx.send(req.text[0:200])
+				happenings = root.find("HAPPENINGS")
+				event = happenings.find("EVENT")
+				list1 = event.findall("EVENT")
+				list2 = event.findall("TIMESTAMP")
+				list3 = event.findall("TEXT")
 				timeslist.extend(list2)
 				eventlist.extend(list1)
 				regionTextlist.extend(list3)
