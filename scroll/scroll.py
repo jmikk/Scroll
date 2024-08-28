@@ -10,6 +10,7 @@ import datetime
 import redbot.core.data_manager
 import re
 
+
 global isRunning
 isRunning = False
 global inSession
