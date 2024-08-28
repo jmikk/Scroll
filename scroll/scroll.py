@@ -9,6 +9,7 @@ import discord
 import datetime
 import redbot.core.data_manager
 import re
+from redbot.core import Config, checks
 
 
 global isRunning
@@ -63,6 +64,7 @@ class Scroll(commands.Cog):
         global bot1
         self.bot = bot
         bot1 = self.bot
+        self.config = Config.get_conf(None, identifier=23456789648)
 
     async def CheckPath(self, ctx, param: str):
         # checks if a certain file exists in the cog's directory; returns true/false and a filepath for i/o purposes
@@ -285,6 +287,7 @@ class Scroll(commands.Cog):
                 buttonView = discord.ui.View()
                 pingString = ""
                 for a in sendList:
+                    await ctx.send(a)
                     item = discord.ui.Button(
                         style=discord.ButtonStyle.gray,
                         label=str(a[0][1]),
@@ -302,6 +305,7 @@ class Scroll(commands.Cog):
                     pingString += f"<@{a[0][0]}> \n`{str(a[1])[1:-1]}`\n"
                     lbDict[a[0][0]][0] += len(a[1])
                     lbRegDict[key][a[0][0]][0] += len(a[1])
+                    
                 lastTime[key] = time.time()
                 # and we send out the message with a ping to everyone active recruiting!
                 await ctx.send(
