@@ -158,21 +158,25 @@ class Scroll(commands.Cog):
             headers=headers,
         )
 
-        # Pulling lists of the important stuff out
+        # Make the request
+        req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers=headers)
+        
+        # Parse the XML
         soup = BeautifulSoup(req.text, "html.parser")
-        eventlist = soup.find_all("EVENT")
-        timeslist = soup.find_all("TIMESTAMP")
-        regionTextlist = soup.find_all("TEXT")
-
-        # Extracting and formatting the content
-        eventlist = [event.get_text() for event in eventlist]
-        timeslist = [timestamp.get_text() for timestamp in timeslist]
-        regionTextlist = [region_text.get_text() for region_text in regionTextlist]
-
-        # Sending the lists to the Discord channel
-        await ctx.send(regionTextlist)
-        await ctx.send(timeslist)
-        await ctx.send(eventlist)
+        
+        # Find the HAPPENINGS element
+        happenings = soup.find("happenings")
+        
+        # Find all events within HAPPENINGS
+        events = happenings.find_all("event")
+        
+        # Process each event
+        for event in events:
+            timestamp = event.find("timestamp").get_text() if event.find("timestamp") else "No timestamp"
+            text = event.find("text").get_text() if event.find("text") else "No text"
+            
+            # Format and send the event information
+            await ctx.send(f"Timestamp: {timestamp}\nEvent: {text}")
 
         regionlist = []
         for text in regionTextlist:
