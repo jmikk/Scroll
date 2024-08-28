@@ -105,6 +105,7 @@ class Scroll(commands.Cog):
 				await ctx.send("Not enough nations could be found, please wait a moment.")
 		await asyncio.sleep(delayTime)
 		await self.ActiveLoop(ctx)
+		
 	async def ActiveLoop(self, ctx):
 		#we do a ping for new nations every (50-250)s, as determined by the user
 		global inSession
@@ -135,8 +136,12 @@ class Scroll(commands.Cog):
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers = headers)
 		#pulling lists of the important stuff out
 		eventlist = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
+		await ctx.send(eventlist)
 		timeslist = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
+		await ctx.send(timeslist)
 		regionTextlist = BeautifulSoup(req.text, "html.parser").find_all("TEXT")
+		await ctx.send(regionTextlist)
+
 		regionlist = []
 		for text in regionTextlist:
 			regionlist.append(str(text).split("%%")[1])
