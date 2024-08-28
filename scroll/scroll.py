@@ -172,11 +172,13 @@ class Scroll(commands.Cog):
         
         # Process each event
         for event in events:
-            timestamp = event.find("timestamp").get_text() if event.find("timestamp") else "No timestamp"
-            text = event.find("text").get_text() if event.find("text") else "No text"
+            eventlist.append(event)
+            timeslist.append(event.find("timestamp").get_text() if event.find("timestamp") else "No timestamp")
+            regionTextlist.append(event.find("text").get_text() if event.find("text") else "No text")
             
             # Format and send the event information
-            await ctx.send(f"Timestamp: {timestamp}\nEvent: {text}")
+            #await ctx.send(f"Timestamp: {timestamp}\nEvent: {text}")
+
 
         regionlist = []
         for text in regionTextlist:
