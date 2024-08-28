@@ -751,7 +751,7 @@ class Scroll(commands.Cog):
             if lastPath[1] == False:
                 # pull 100 as a baseline dealio; set lastID at most recent
                 req = requests.get(
-                    "https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=100",
+                    "https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding+cte;limit=16",
                     headers=headers,
                 )
                 eventlist = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
