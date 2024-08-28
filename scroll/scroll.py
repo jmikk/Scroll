@@ -116,6 +116,8 @@ class Scroll(commands.Cog):
 		while inSession == True:
 			await self.ActivePing(ctx)
 			await asyncio.sleep(delayTime)
+
+	
 	async def ActivePing(self, ctx):
 		#we ping for new nations every time the loop above runs :)
 		global queueDict
@@ -133,18 +135,21 @@ class Scroll(commands.Cog):
 		#grabbing every new found since the last time a similar ping was made
 		#since it's required to start background pings before launching an active session, there will *always* be an event ID on file.
 		#as currently stands this also won't catch everything if there's over 100 founds in the 50-250s window, but that's an exceedingly extreme edge case and that kinda founding spike would probably fuck NS itself up as well lmaoo
-		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers = headers)
-		#pulling lists of the important stuff out
-		eventlist = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
-		timeslist = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
-		regionTextlist = BeautifulSoup(req.text, "html.parser").find_all("TEXT")
+		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers=headers)
 
-		# Extracting and formatting the content
+	        # Pulling lists of the important stuff out
+	    	soup = BeautifulSoup(req.text, "html.parser")
+	    	eventlist = soup.find_all("EVENT")
+		timeslist = soup.find_all("TIMESTAMP")
+		regionTextlist = soup.find_all("TEXT")
+	
+	    	# Extracting and formatting the content
 		eventlist = [event.get_text() for event in eventlist]
-		timeslist = [timestamp.get_text() for timestamp in timeslist]
+		timeslist = [timestamp.get_text() for timestamp in timeslist]	
 		regionTextlist = [region_text.get_text() for region_text in regionTextlist]
-
-		await ctx.send(regionTextlist)
+	
+	    	# Sending the lists to the Discord channel
+	    	await ctx.send(regionTextlist)
 		await ctx.send(timeslist)
 		await ctx.send(eventlist)
 
