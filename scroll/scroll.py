@@ -135,6 +135,7 @@ class Scroll(commands.Cog):
 		#as currently stands this also won't catch everything if there's over 100 founds in the 50-250s window, but that's an exceedingly extreme edge case and that kinda founding spike would probably fuck NS itself up as well lmaoo
 		req = requests.get(f"https://www.nationstates.net/cgi-bin/api.cgi?q=happenings;filter=founding;sinceid={lastID}", headers = headers)
 		#pulling lists of the important stuff out
+		await ctx.send(req.text[0:1000]
 		eventlist = BeautifulSoup(req.text, "html.parser").find_all("EVENT")
 		await ctx.send(eventlist)
 		timeslist = BeautifulSoup(req.text, "html.parser").find_all("TIMESTAMP")
