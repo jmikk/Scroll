@@ -287,7 +287,10 @@ class Scroll(commands.Cog):
                 buttonView = discord.ui.View()
                 pingString = ""
                 for a in sendList:
-                    await ctx.send(a)
+                    #adds credits to the sender 
+                    current_credits = await self.config.user(a[0][1]).credits()  # Get current credits
+                    new_credits = current_credits + len(a[1])  # Modify credits
+                    await self.config.user(a[0][1]).credits.set(new_credits) 
                     item = discord.ui.Button(
                         style=discord.ButtonStyle.gray,
                         label=str(a[0][1]),
