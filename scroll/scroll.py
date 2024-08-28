@@ -169,7 +169,9 @@ class Scroll(commands.Cog):
         
         # Find all events within HAPPENINGS
         events = happenings.find_all("event")
-        
+        eventlist = []
+        timeslist = []
+        regionTextlist = []
         # Process each event
         for event in events:
             eventlist.append(event)
