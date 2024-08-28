@@ -205,7 +205,7 @@ class Scroll(commands.Cog):
                     )
                     if "1" in req2.text:
                         activeQueue.append(
-                            [b, eventlist[a].get("id"), int(timeslist[a].string)]
+                            [b, eventlist[a].get("id"), int(timeslist[a])]
                         )
                         print(f"{b} : yes")
                     else:
