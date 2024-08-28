@@ -115,6 +115,9 @@ class Scroll(commands.Cog):
                 lbPath = await self.CheckPath(ctx, "leaderboards.txt")
                 with open(lbPath[0], "w") as f:
                     f.write(str(lbDict))
+                lbPath = await self.CheckPath(ctx, "tokens.txt")
+                with open(lbPath[0], "w") as f:
+                    f.write(str(lbDict))
                 lbRegPath = await self.CheckPath(ctx, "regionboards.txt")
                 lbRegDict[key][recDict[key][0][0]][0] += 8
                 with open(lbRegPath[0], "w") as f:
@@ -360,6 +363,9 @@ class Scroll(commands.Cog):
         activeQueue = []
         # and we write updated leaderboard and queue information to their external files regardless of what happens so ideally that stuff doesn't get lost in a bot crash
         lbPath = await self.CheckPath(ctx, "leaderboards.txt")
+        with open(lbPath[0], "w") as f:
+            f.write(str(lbDict))
+        lbPath = await self.CheckPath(ctx, "tokens.txt")
         with open(lbPath[0], "w") as f:
             f.write(str(lbDict))
         lbRegPath = await self.CheckPath(ctx, "regionboards.txt")
@@ -611,6 +617,9 @@ class Scroll(commands.Cog):
             lbPath = await self.CheckPath(ctx, "leaderboards.txt")
             with open(lbPath[0], "w") as f:
                 f.write(str(lbDict))
+            lbPath = await self.CheckPath(ctx, "tokens.txt")
+            with open(lbPath[0], "w") as f:
+                f.write(str(lbDict))
             queuePath = await self.CheckPath(ctx, "queueDict.txt")
             with open(queuePath[0], "w") as f:
                 f.write(str(queueDict))
@@ -629,6 +638,9 @@ class Scroll(commands.Cog):
                         f"{author.mention}:\nThe current recruiting session has now ended."
                     )
                     lbPath = await self.CheckPath(ctx, "leaderboards.txt")
+                    with open(lbPath[0], "w") as f:
+                        f.write(str(lbDict))
+                    lbPath = await self.CheckPath(ctx, "tokens.txt")
                     with open(lbPath[0], "w") as f:
                         f.write(str(lbDict))
                     print(lbPath[0])
@@ -689,6 +701,9 @@ class Scroll(commands.Cog):
         lastTime = {}
         activeQueue = []
         lbPath = await self.CheckPath(ctx, "leaderboards.txt")
+        with open(lbPath[0], "w") as f:
+            f.write(str(lbDict))
+        lbPath = await self.CheckPath(ctx, "tokens.txt")
         with open(lbPath[0], "w") as f:
             f.write(str(lbDict))
         queuePath = await self.CheckPath(ctx, "queueDict.txt")
