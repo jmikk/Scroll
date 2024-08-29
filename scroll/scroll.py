@@ -65,6 +65,11 @@ class Scroll(commands.Cog):
         self.bot = bot
         bot1 = self.bot
         self.config = Config.get_conf(None, identifier=23456789648)
+        default_user = {
+            "credits": 0,
+        }
+        
+        self.config.register_user(**default_user)
 
     async def CheckPath(self, ctx, param: str):
         # checks if a certain file exists in the cog's directory; returns true/false and a filepath for i/o purposes
