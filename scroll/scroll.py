@@ -276,6 +276,7 @@ class Scroll(commands.Cog):
                 # constructing a list w/ the sender and a set of 8 sendees
                 for a in recDict[key]:
                     sendList.append([a, []])
+                    await ctx.send(a)
                 for a in range(len(tempQueue[0])):
                     sendList[a % numRecruiters][1].append(tempQueue[0][a])
                 print(
