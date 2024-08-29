@@ -111,7 +111,7 @@ class Scroll(commands.Cog):
                 )
                 buttonView.add_item(item=item)
                 await ctx.send(
-                    f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n<@{recDict[key][0][0]}>\n`{str(natList)[1:-1]}`',
+                    f'3A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n<@{recDict[key][0][0]}>\n`{str(natList)[1:-1]}`',
                     view=buttonView,
                 )
                 queuePath = await self.CheckPath(ctx, "queueDict.txt")
@@ -324,7 +324,7 @@ class Scroll(commands.Cog):
                 lastTime[key] = time.time()
                 # and we send out the message with a ping to everyone active recruiting!
                 await ctx.send(
-                    f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
+                    f'1A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
                     view=buttonView,
                 )
             # if a full set of 8 per recruiter *hasn't* been filled yet, and more than five minutes have passed since the last such message
@@ -370,7 +370,7 @@ class Scroll(commands.Cog):
                         lbRegDict[key][a[0][0]][0] += len(a[1])
                     lastTime[key] = time.time()
                     await ctx.send(
-                        f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
+                        f'2A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
                         view=buttonView,
                     )
                 else:
