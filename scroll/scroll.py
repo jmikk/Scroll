@@ -181,11 +181,7 @@ class Scroll(commands.Cog):
                 await self.forcestop(ctx)
                 inSession = False
                 
-                break
-
-            if view.approved:
-                await self.ActivePing(ctx)
-            
+                break            
             await asyncio.sleep(delayTime)
 
     async def ActivePing(self, ctx):
