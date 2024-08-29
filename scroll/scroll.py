@@ -302,7 +302,6 @@ class Scroll(commands.Cog):
 
                     await self.config.user_from_id(user_id).credits.set(new_credits)
 
-                    await ctx.send(f"Credits currently at: {new_credits}")
 
                     
                     item = discord.ui.Button(
