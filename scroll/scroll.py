@@ -65,8 +65,8 @@ class ApprovalView(discord.ui.View):
 
     async def on_timeout(self):
         self.done=True
-        await interaction.response.send_message("Time out!", ephemeral=True)
-
+        if self.message:  # Check if the view was attached to a message
+            await self.message.channel.send("Time out! The session has been marked as done.")
         self.stop()
 
     @discord.ui.button(label="Approve", style=discord.ButtonStyle.green)
