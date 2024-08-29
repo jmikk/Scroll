@@ -291,6 +291,9 @@ class Scroll(commands.Cog):
 
                     user_id = int(a[0][0])  # Assuming a[0][0] contains the user ID
                     current_credits = await self.config.user_from_id(user_id).credits()  # Get current credits
+                    if current_credits = None:
+                        current_credits = 0
+                        
                     new_credits = current_credits + len(a[1])  # Modify credits
                     await self.config.user_from_id(user_id).credits.set(new_credits)
                     
