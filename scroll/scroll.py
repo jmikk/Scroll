@@ -64,7 +64,7 @@ class ApprovalView(discord.ui.View):
         self.done = False
 
     async def on_timeout(self):
-        self.done=True
+        self.done = True
         if self.message:  # Check if the view was attached to a message
             await self.message.channel.send("Time out! The session has been marked as done.")
         self.stop()
@@ -78,7 +78,6 @@ class ApprovalView(discord.ui.View):
     @discord.ui.button(label="All Done", style=discord.ButtonStyle.red)
     async def all_done(self, interaction: discord.Interaction, button: discord.ui.Button):
         self.done = True
-        await interaction.response.send_message("All done!", ephemeral=True)
         self.stop()
 
 
@@ -178,6 +177,8 @@ class Scroll(commands.Cog):
 
             # Wait for the user to click one of the buttons
             await view.wait()
+
+            await asyncio.sleep(.5)
 
             if view.done:
                 await ctx.send("Session marked as complete.")
