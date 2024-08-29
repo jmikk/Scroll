@@ -57,6 +57,29 @@ delayTime = 60
 global regionWhiteList
 regionWhiteList = []
 
+class ApprovalView(discord.ui.View):
+    def __init__(self, timeout=180):
+        super().__init__(timeout=timeout)
+        self.approved = False
+        self.done = False
+
+    async def on_timeout(self):
+        self.done=True
+        self.stop()
+
+    @discord.ui.button(label="Approve", style=discord.ButtonStyle.green)
+    async def approve(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.approved = True
+        await interaction.response.send_message("Approved!", ephemeral=True)
+        self.stop()
+
+    @discord.ui.button(label="All Done", style=discord.ButtonStyle.red)
+    async def all_done(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.done = True
+        await interaction.response.send_message("All done!", ephemeral=True)
+        self.stop()
+
+
 
 class Scroll(commands.Cog):
     """NS Manual Recruitment Helper."""
@@ -145,7 +168,24 @@ class Scroll(commands.Cog):
         # this is scuffed as fuck, but it's logging so i can immediately cancel that task if a session ends via everyone leaving/forcestop
         current3 = asyncio.current_task()
         while inSession == True:
+            view = ApprovalView()
             await self.ActivePing(ctx)
+            
+            await ctx.send("Please approve the next batch or mark all done:", view=view)
+
+            # Wait for the user to click one of the buttons
+            await view.wait()
+
+            if view.done:
+                await ctx.send("Session marked as complete.")
+                await self.forcestop(ctx)
+                inSession = False
+                
+                break
+
+            if view.approved:
+                await self.ActivePing(ctx)
+            
             await asyncio.sleep(delayTime)
 
     async def ActivePing(self, ctx):
