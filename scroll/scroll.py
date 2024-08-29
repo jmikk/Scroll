@@ -65,6 +65,8 @@ class ApprovalView(discord.ui.View):
 
     async def on_timeout(self):
         self.done=True
+        await interaction.response.send_message("Time out!", ephemeral=True)
+
         self.stop()
 
     @discord.ui.button(label="Approve", style=discord.ButtonStyle.green)
@@ -180,8 +182,8 @@ class Scroll(commands.Cog):
                 await ctx.send("Session marked as complete.")
                 await self.forcestop(ctx)
                 inSession = False
+                break
                 
-                break            
             await asyncio.sleep(delayTime)
 
     async def ActivePing(self, ctx):
