@@ -12,6 +12,7 @@ import re
 from redbot.core import Config, checks
 
 
+
 global isRunning
 isRunning = False
 global inSession
