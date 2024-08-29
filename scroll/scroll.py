@@ -276,7 +276,6 @@ class Scroll(commands.Cog):
                 # constructing a list w/ the sender and a set of 8 sendees
                 for a in recDict[key]:
                     sendList.append([a, []])
-                    await ctx.send(a)
                 for a in range(len(tempQueue[0])):
                     sendList[a % numRecruiters][1].append(tempQueue[0][a])
                 print(
@@ -290,11 +289,11 @@ class Scroll(commands.Cog):
                 for a in sendList:
                     #adds credits to the sender 
 
-                    user = discord.utils.get(ctx.bot.users, name=a[0][1])                    
-                    
-                    current_credits = await self.config.user(user).credits()  # Get current credits
+                    user_id = a[0][0]  # Assuming a[0][0] contains the user ID
+                    current_credits = await self.config.user_from_id(user_id).credits()  # Get current credits
                     new_credits = current_credits + len(a[1])  # Modify credits
-                    await self.config.user(user).credits.set(new_credits) 
+                    await self.config.user_from_id(user_id).credits.set(new_credits)
+                    
                     item = discord.ui.Button(
                         style=discord.ButtonStyle.gray,
                         label=str(a[0][1]),
