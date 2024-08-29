@@ -111,7 +111,7 @@ class Scroll(commands.Cog):
                 )
                 buttonView.add_item(item=item)
                 await ctx.send(
-                    f'3A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n<@{recDict[key][0][0]}>\n`{str(natList)[1:-1]}`',
+                    f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n<@{recDict[key][0][0]}>\n`{str(natList)[1:-1]}`',
                     view=buttonView,
                 )
                 queuePath = await self.CheckPath(ctx, "queueDict.txt")
@@ -295,20 +295,14 @@ class Scroll(commands.Cog):
                     #adds credits to the sender 
 
                     user_id = int(a[0][0])  # Assuming a[0][0] contains the user ID
-                    await ctx.send("HERE")
                     current_credits = await self.config.user_from_id(user_id).credits()  # Get current credits
-                    await ctx.send("HERE2")
                     if current_credits == None:
                         current_credits = 0
-                    await ctx.send("HERE3")
                     new_credits = current_credits + len(a[1])  # Modify credits
-                    await ctx.send("HERE4")
 
                     await self.config.user_from_id(user_id).credits.set(new_credits)
-                    await ctx.send("HERE5")
 
                     await ctx.send(f"Credits currently at: {new_credits}")
-                    await ctx.send("HERE6")
 
                     
                     item = discord.ui.Button(
@@ -332,7 +326,7 @@ class Scroll(commands.Cog):
                 lastTime[key] = time.time()
                 # and we send out the message with a ping to everyone active recruiting!
                 await ctx.send(
-                    f'1A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
+                    f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
                     view=buttonView,
                 )
             # if a full set of 8 per recruiter *hasn't* been filled yet, and more than five minutes have passed since the last such message
@@ -378,7 +372,7 @@ class Scroll(commands.Cog):
                         lbRegDict[key][a[0][0]][0] += len(a[1])
                     lastTime[key] = time.time()
                     await ctx.send(
-                        f'2A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
+                        f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
                         view=buttonView,
                     )
                 else:
