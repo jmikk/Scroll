@@ -173,7 +173,8 @@ class Scroll(commands.Cog):
             view = ApprovalView()
             await self.ActivePing(ctx)
             
-            await ctx.send("Please approve the next batch or mark all done:", view=view)
+            message = await ctx.send("Please approve the next batch or mark all done:", view=view)
+            view.message = message  # Attach the message to the view
 
             # Wait for the user to click one of the buttons
             await view.wait()
