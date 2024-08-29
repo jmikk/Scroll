@@ -289,7 +289,7 @@ class Scroll(commands.Cog):
                 for a in sendList:
                     #adds credits to the sender 
 
-                    user_id = a[0][0]  # Assuming a[0][0] contains the user ID
+                    user_id = int(a[0][0])  # Assuming a[0][0] contains the user ID
                     current_credits = await self.config.user_from_id(user_id).credits()  # Get current credits
                     new_credits = current_credits + len(a[1])  # Modify credits
                     await self.config.user_from_id(user_id).credits.set(new_credits)
