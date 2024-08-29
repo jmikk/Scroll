@@ -289,11 +289,11 @@ class Scroll(commands.Cog):
                 for a in sendList:
                     #adds credits to the sender 
 
-                    member = discord.utils.find(lambda m: m.name.lower() == a[0][1].lower(), ctx.guild.members)
+                    user = discord.utils.get(ctx.bot.users, name=a[0][1])                    
                     
-                    current_credits = await self.config.user(member).credits()  # Get current credits
+                    current_credits = await self.config.user(user).credits()  # Get current credits
                     new_credits = current_credits + len(a[1])  # Modify credits
-                    await self.config.user(a[0][1]).credits.set(new_credits) 
+                    await self.config.user(user).credits.set(new_credits) 
                     item = discord.ui.Button(
                         style=discord.ButtonStyle.gray,
                         label=str(a[0][1]),
