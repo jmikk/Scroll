@@ -171,7 +171,7 @@ class Scroll(commands.Cog):
         while inSession == True:
             view = ApprovalView()
             count = await self.ActivePing(ctx)
-
+            await ctx.send(count)
             if count > 0:
                 message = await ctx.send("Please approve the next batch or mark all done:", view=view)
                 view.message = message  # Attach the message to the view
