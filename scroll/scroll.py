@@ -170,9 +170,9 @@ class Scroll(commands.Cog):
         current3 = asyncio.current_task()
         while inSession == True:
             view = ApprovalView()
-            count = await self.ActivePing(ctx)
-            await ctx.send(count)
-            if count > 0:
+            count2 = await self.ActivePing(ctx)
+            await ctx.send(count2)
+            if count2 > 0:
                 message = await ctx.send("Please approve the next batch or mark all done:", view=view)
                 view.message = message  # Attach the message to the view
 
@@ -202,7 +202,7 @@ class Scroll(commands.Cog):
         global regionWhiteList
         global lbRegDict
 
-        count = 0
+        count2 = 0
         # once again logging for session end/forcestop purposes
         current4 = asyncio.current_task()
         # grabbing every new found since the last time a similar ping was made
@@ -325,7 +325,7 @@ class Scroll(commands.Cog):
                 # constructing a list w/ the sender and a set of 8 sendees
                 for a in recDict[key]:
                     sendList.append([a, []])
-                count = 1
+                count2 = 1
                 for a in range(len(tempQueue[0])):
                     sendList[a % numRecruiters][1].append(tempQueue[0][a])
                 print(
@@ -439,7 +439,7 @@ class Scroll(commands.Cog):
         queuePath = await self.CheckPath(ctx, "queueDict.txt")
         with open(queuePath[0], "w") as f:
             f.write(str(queueDict))
-        return count
+        return count2
 
         # TODO: add new queue stuff into queues of regions not currently recruiting
 
