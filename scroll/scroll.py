@@ -72,7 +72,7 @@ class ApprovalView(discord.ui.View):
     @discord.ui.button(label="Approve", style=discord.ButtonStyle.green)
     async def approve(self, interaction: discord.Interaction, button: discord.ui.Button):
         self.approved = True
-        await interaction.response.send_message("Approved!", ephemeral=True)
+        await interaction.response.send_message("Approved!")
         self.stop()
 
     @discord.ui.button(label="All Done", style=discord.ButtonStyle.red)
