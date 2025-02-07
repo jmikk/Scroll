@@ -123,6 +123,7 @@ class Scroll(commands.Cog):
                 for a in queueDict[key]:
                     del a[-8:]
                 buttonView = discord.ui.View()
+                
                 item = discord.ui.Button(
                     style=discord.ButtonStyle.gray,
                     label=str(recDict[key][0][1]),
@@ -338,15 +339,12 @@ class Scroll(commands.Cog):
                 pingString = ""
                 for a in sendList:
                     #adds credits to the sender 
-
-                    user_id = int(a[0][0])  # Assuming a[0][0] contains the user ID
-                    current_credits = await self.config.user_from_id(user_id).credits()  # Get current credits
-                    if current_credits == None:
+                    user_id = int(a[0][0])  
+                    current_credits = await self.config.user_from_id(user_id).credits()  
+                    if current_credits is None:
                         current_credits = 0
-                    new_credits = current_credits + len(a[1])  # Modify credits
-
+                    new_credits = current_credits + len(a[1])  
                     await self.config.user_from_id(user_id).credits.set(new_credits)
-
 
                     
                     item = discord.ui.Button(
@@ -397,6 +395,14 @@ class Scroll(commands.Cog):
                     buttonView = discord.ui.View()
                     pingString = ""
                     for a in sendList:
+
+                        user_id = int(a[0][0])  
+                        current_credits = await self.config.user_from_id(user_id).credits()  
+                        if current_credits is None:
+                            current_credits = 0
+                        new_credits = current_credits + len(a[1])  
+                        await self.config.user_from_id(user_id).credits.set(new_credits)
+
                         item = discord.ui.Button(
                             style=discord.ButtonStyle.gray,
                             label=str(a[0][1]),
