@@ -89,7 +89,7 @@ class Scroll(commands.Cog):
         global bot1
         self.bot = bot
         bot1 = self.bot
-        self.config = Config.get_conf(None, identifier=23456789648)
+        self.config = Config.get_conf(self, identifier=23456789648)
         default_user = {
             "credits": 0,
         }
