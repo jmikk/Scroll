@@ -76,7 +76,7 @@ class ApprovalView(discord.ui.View):
         user_id = str(interaction.user.id)
 
 
-        user_ids = {user[0] for group in recDict.values() for user in group}
+        user_ids = {user[0] for group in self.recDict.values() for user in group}
 
         if user_id not in user_ids:
             await interaction.response.send_message(f"You are not required to approve. {self.recDict}", ephemeral=True)
