@@ -506,14 +506,14 @@ class Scroll(commands.Cog):
         if isRunning == False:
             # if background backlog isn't running *at all*, it'll direct the user to start that, 'cause it's important :))
             await ctx.send(
-                f"{author.mention}:\nBackground Queue is not currently running; please enable it with >queuestart"
+                f"{author.mention}:\nBackground Queue is not currently running; please enable it with $queuestart"
             )
             return
         if tempDict == False:
             # we check if the bot has template data here or externally, and if not, direct the user to create a new template
             if tempPath[1] == False:
                 await ctx.send(
-                    f"{author.mention}:\nNo template data has been found. Please add a template with >template add."
+                    f"{author.mention}:\nNo template data has been found. Please add a template with $template add."
                 )
                 return
             else:
