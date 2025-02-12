@@ -73,7 +73,7 @@ class ApprovalView(discord.ui.View):
 
     @discord.ui.button(label="Approve", style=discord.ButtonStyle.green)
     async def approve(self, interaction: discord.Interaction, button: discord.ui.Button):
-        user_id = interaction.user.id
+        user_id = str(interaction.user.id)
         
         if user_id not in self.recDict:
             await interaction.response.send_message(f"You are not required to approve. {recDict}", ephemeral=True)
