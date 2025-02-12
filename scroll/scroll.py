@@ -58,28 +58,43 @@ global regionWhiteList
 regionWhiteList = []
 
 class ApprovalView(discord.ui.View):
-    def __init__(self, timeout=180):
+    def __init__(self, recDict, timeout=180):
         super().__init__(timeout=timeout)
-        self.approved = False
+        self.recDict = recDict  # Dictionary of users who must approve
+        self.approved_users = set()
         self.done = False
+        self.message = None
 
     async def on_timeout(self):
         self.done = True
-        if self.message:  # Check if the view was attached to a message
+        if self.message:
             await self.message.channel.send("Time out! The session has been marked as done.")
         self.stop()
 
     @discord.ui.button(label="Approve", style=discord.ButtonStyle.green)
     async def approve(self, interaction: discord.Interaction, button: discord.ui.Button):
-        self.approved = True
-        await interaction.response.send_message("Approved!")
-        self.stop()
+        user_id = interaction.user.id
+        
+        if user_id not in self.recDict:
+            await interaction.response.send_message("You are not required to approve.", ephemeral=True)
+            return
+        
+        self.approved_users.add(user_id)
+        
+        remaining = set(self.recDict.keys()) - self.approved_users
+        
+        if not remaining:
+            await interaction.response.send_message("All required users have approved!")
+            await self.all_approved()
+            self.stop()
+        else:
+            await interaction.response.send_message(f"Approval received! Waiting on {len(remaining)} more.", ephemeral=True)
 
     @discord.ui.button(label="All Done", style=discord.ButtonStyle.red)
     async def all_done(self, interaction: discord.Interaction, button: discord.ui.Button):
         self.done = True
+        await interaction.response.send_message("Process marked as done.")
         self.stop()
-
 
 
 class Scroll(commands.Cog):
@@ -531,7 +546,7 @@ class Scroll(commands.Cog):
         if not (str(author.id) in tempDict):
             # if the user doesn't have any registered templates, make a new one smdh
             await ctx.send(
-                f"{author.mention}:\nNo template registered to you has been found. Please add a template with >template add."
+                f"{author.mention}:\nNo template registered to you has been found. Please add a template with $template add."
             )
             return
         try:
@@ -541,7 +556,7 @@ class Scroll(commands.Cog):
             tempRegion = tempDict[str(author.id)][int(templatenumber) - 1][1]
         except:
             await ctx.send(
-                f"{author.mention}:\nNo template with that number has been found. Please check that you have selected the correct number with >template list"
+                f"{author.mention}:\nNo template with that number has been found. Please check that you have selected the correct number with $template list"
             )
             return
         if inSession == False:
