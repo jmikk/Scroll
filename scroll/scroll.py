@@ -506,7 +506,7 @@ class Scroll(commands.Cog):
         if isRunning == False:
             # if background backlog isn't running *at all*, it'll direct the user to start that, 'cause it's important :))
             await ctx.send(
-                f"{author.mention}:\nBackground Queue is not currently running; please enable it with $queuestart"
+                f"{author.mention}:\nBackground Queue is not currently running; please enable it with $queuestart You may have to do it twice!"
             )
             return
         if tempDict == False:
