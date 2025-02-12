@@ -373,22 +373,7 @@ class Scroll(commands.Cog):
                     f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
                     view=buttonView,
                 )
-                view = ApprovalView()
                 
-                message = await ctx.send("Please approve the next batch or mark all done:", view=view)
-                view.message = message  # Attach the message to the view
-
-                # Wait for the user to click one of the buttons
-                await view.wait()
-
-                await asyncio.sleep(.5)
-
-                if view.done:
-                    await ctx.send("Session marked as complete.")
-                    await self.forcestop(ctx)
-                    inSession = False
-                    return -100
-                #comebackhere
             # if a full set of 8 per recruiter *hasn't* been filled yet, and more than five minutes have passed since the last such message
             # being able to send *something* feels better than not giving the user any feedback at all, thus
             elif time.time() - lastTime[key] >= 300:
