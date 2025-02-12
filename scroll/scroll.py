@@ -137,7 +137,7 @@ class Scroll(commands.Cog):
                 )
                 buttonView.add_item(item=item)
                 await ctx.send(
-                    f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n<@{recDict[key][0][0]}>\n`{str(natList)[1:-1]}`',
+                    f'A new full batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n<@{recDict[key][0][0]}>\n`{str(natList)[1:-1]}`',
                     view=buttonView,
                 )
                 queuePath = await self.CheckPath(ctx, "queueDict.txt")
