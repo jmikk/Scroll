@@ -428,6 +428,8 @@ class Scroll(commands.Cog):
                         f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
                         view=buttonView,
                     )
+                    count2 = 1
+                    #comebackhere2
                 else:
                     # if there's not enough to give everyone at least one nation, we set the cap timer a bit shorter and send a message so there's at least some feedback as to what's going on
                     await ctx.send(
