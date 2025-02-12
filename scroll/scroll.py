@@ -182,14 +182,14 @@ class Scroll(commands.Cog):
         global inSession
         global current3
         global delayTime
+        global recDict
         # this is scuffed as fuck, but it's logging so i can immediately cancel that task if a session ends via everyone leaving/forcestop
         current3 = asyncio.current_task()
         while inSession == True:
-            view = ApprovalView()
+            view = ApprovalView(recDict)
             count2 = await self.ActivePing(ctx)
             #await ctx.send(count2)
-            if count2 == -100:
-                break
+
             if count2 > 0:
                 message = await ctx.send("Please approve the next batch or mark all done:", view=view)
                 view.message = message  # Attach the message to the view
