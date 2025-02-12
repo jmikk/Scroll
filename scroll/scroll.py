@@ -370,7 +370,7 @@ class Scroll(commands.Cog):
                 lastTime[key] = time.time()
                 # and we send out the message with a ping to everyone active recruiting!
                 await ctx.send(
-                    f'A new batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
+                    f'A new crazy batch of nations has been founded; please follow the provided button and press "Send".\n\n__**TARGETS:**__\n{pingString[:-1]}',
                     view=buttonView,
                 )
                 
