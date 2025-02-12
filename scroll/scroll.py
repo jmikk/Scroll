@@ -76,12 +76,12 @@ class ApprovalView(discord.ui.View):
         user_id = str(interaction.user.id)
         
         if user_id not in self.recDict:
-            await interaction.response.send_message(f"You are not required to approve. {recDict}", ephemeral=True)
+            await interaction.response.send_message(f"You are not required to approve. {self.recDict}", ephemeral=True)
             return
         
         self.approved_users.add(user_id)
         
-        remaining = set(self.recDict.keys()) - self.approved_users
+        remaining = self.recDict - self.approved_users
         
         if not remaining:
             await interaction.response.send_message("All required users have approved!")
