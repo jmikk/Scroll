@@ -64,12 +64,14 @@ class ApprovalView(discord.ui.View):
         self.approved_users = set()
         self.done = False
         self.message = None
+        self.approved = False
 
     async def on_timeout(self):
         self.done = True
         if self.message:
             await self.message.channel.send("Time out! The session has been marked as done.")
         self.stop()
+        
     @discord.ui.button(label="Approve", style=discord.ButtonStyle.green)
     async def approve(self, interaction: discord.Interaction, button: discord.ui.Button):
         user_id = str(interaction.user.id)
@@ -88,10 +90,10 @@ class ApprovalView(discord.ui.View):
         
         if not remaining:
             await interaction.response.send_message("All required users have approved!")
-            await self.all_approved()
+            self.approved = True
             self.stop()
         else:
-            await interaction.response.send_message(f"Approval received! Waiting on {len(remaining)} more.", ephemeral=True)
+            await interaction.response.send_message(f"Approval received! Waiting on {len(remaining)} more.")
 
 
     @discord.ui.button(label="All Done", style=discord.ButtonStyle.red)
