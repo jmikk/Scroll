@@ -114,7 +114,8 @@ class Scroll(commands.Cog):
         default_user = {
             "credits": 0,
         }
-        
+        self.config2 = Config.get_conf(None, identifier=345678654456, force_registration=True)
+        self.config2.register_user(master_balance=0, xp=0, last_message_time=0, linked_nations=[],last_rmb_post_time=0)
         self.config.register_user(**default_user)
 
     async def CheckPath(self, ctx, param: str):
@@ -361,13 +362,13 @@ class Scroll(commands.Cog):
                 buttonView = discord.ui.View()
                 pingString = ""
                 for a in sendList:
-                    #adds credits to the sender 
+                    #adds master_balance to the sender 
                     user_id = int(a[0][0])  
-                    current_credits = await self.config.user_from_id(user_id).credits()  
-                    if current_credits is None:
-                        current_credits = 0
-                    new_credits = current_credits + len(a[1])  
-                    await self.config.user_from_id(user_id).credits.set(new_credits)
+                    current_master_balance = await self.config2.user_from_id(user_id).master_balance()  
+                    if current_master_balance is None:
+                        current_master_balance = 0
+                    new_master_balance = current_master_balance+ len(a[1])  
+                    await self.config2.user_from_id(user_id).master_balance.set(new_master_balance)
 
                     
                     item = discord.ui.Button(
@@ -421,11 +422,11 @@ class Scroll(commands.Cog):
                     for a in sendList:
 
                         user_id = int(a[0][0])  
-                        current_credits = await self.config.user_from_id(user_id).credits()  
-                        if current_credits is None:
-                            current_credits = 0
-                        new_credits = current_credits + len(a[1])  
-                        await self.config.user_from_id(user_id).credits.set(new_credits)
+                        current_master_balance = await self.config.user_from_id(user_id).master_balance()  
+                        if current_master_balance is None:
+                            current_master_balance = 0
+                        new_master_balance = current_master_balance + len(a[1])  
+                        await self.config2.user_from_id(user_id).master_balance.set(new_master_balance)
 
                         item = discord.ui.Button(
                             style=discord.ButtonStyle.gray,
