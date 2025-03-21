@@ -422,7 +422,7 @@ class Scroll(commands.Cog):
                     for a in sendList:
 
                         user_id = int(a[0][0])  
-                        current_master_balance = await self.config.user_from_id(user_id).master_balance()  
+                        current_master_balance = await self.config2.user_from_id(user_id).master_balance()  
                         if current_master_balance is None:
                             current_master_balance = 0
                         new_master_balance = current_master_balance + (len(a[1]) * 7) 
