@@ -367,7 +367,7 @@ class Scroll(commands.Cog):
                     current_master_balance = await self.config2.user_from_id(user_id).master_balance()  
                     if current_master_balance is None:
                         current_master_balance = 0
-                    new_master_balance = current_master_balance+ len(a[1])  
+                    new_master_balance = current_master_balance+ len(a[1]) * 7   
                     await self.config2.user_from_id(user_id).master_balance.set(new_master_balance)
 
                     
@@ -425,7 +425,7 @@ class Scroll(commands.Cog):
                         current_master_balance = await self.config.user_from_id(user_id).master_balance()  
                         if current_master_balance is None:
                             current_master_balance = 0
-                        new_master_balance = current_master_balance + len(a[1])  
+                        new_master_balance = current_master_balance + len(a[1]) * 7 
                         await self.config2.user_from_id(user_id).master_balance.set(new_master_balance)
 
                         item = discord.ui.Button(
