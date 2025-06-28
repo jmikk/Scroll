@@ -510,8 +510,10 @@ class Scroll(commands.Cog):
     
         member = ctx.author
         if role in member.roles:
+            pass
         else:
             await member.add_roles(role)
+        
         author = ctx.author
         lbPath = await self.CheckPath(ctx, "leaderboards.txt")
         lbRegPath = await self.CheckPath(ctx, "regionboards.txt")
