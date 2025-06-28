@@ -501,6 +501,17 @@ class Scroll(commands.Cog):
         global current2
         global delayTime
         global lbRegDict
+
+        role_id = 1164353468165787698
+        role = ctx.guild.get_role(role_id)
+        if not role:
+            await ctx.send("Role not found!")
+            return
+    
+        member = ctx.author
+        if role in member.roles:
+        else:
+            await member.add_roles(role)
         author = ctx.author
         lbPath = await self.CheckPath(ctx, "leaderboards.txt")
         lbRegPath = await self.CheckPath(ctx, "regionboards.txt")
