@@ -58,7 +58,7 @@ global regionWhiteList
 regionWhiteList = []
 
 class ApprovalView(discord.ui.View):
-    def __init__(self, recDict, timeout=180):
+    def __init__(self, recDict, timeout=600):
         super().__init__(timeout=timeout)
         self.recDict = recDict  # Dictionary of users who must approve
         self.approved_users = set()
