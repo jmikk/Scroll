@@ -582,7 +582,7 @@ class Scroll(commands.Cog):
         if inSession == False:
             # if there's no active recruiting session, we check if the previous session ended long enough ago
             # register the stuff just above to the recruitment dictionary, and start a session
-            if (time.time() - stopTime) < (delayTime + 10):
+            if (time.time() - stopTime) < 10:
                 await ctx.send(
                     f"{author.mention}:\nPrevious recruitment session halted too recently; please wait a couple seconds and try again."
                 )
